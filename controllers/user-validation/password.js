@@ -27,26 +27,29 @@ async function checkHIBP(password) {
         ? { isBreached: true, msg: "Password has been found in a data breach, please choose a strong password for security purpose" }
         : { isBreached: false, msg: "Password is safe from known breaches." };
 }
-const isStrongPassword=async(password)=>{
-
-   const minLength=12;
-   if(password.length<minLength){
+const isStrongPassword=async(password,confirmPassword)=>{
+    if (password != confirmPassword) return {
+        isValid:false,
+        message:"Password doesn't match"
+    }
+    const minLength = 12;
+    if(password.length<minLength)
     return {
         isValid:false,
         message:"minimum length of password should be 12 characters (including at least one numbers, UPPERCASE letters, lowercase letters and special charaters)"
     }
-   }
+    
     const hasDigit=/[0-9]/.test(password)
     const hasUpperCase=/[A-Z]/.test(password)
     const hasLowerCase=/[a-z]/.test(password)
     const hasSpecialCharacter=/[!@#$%^&*(),.?":{}|<>]/.test(password)
-
+    
     if(!hasDigit || !hasUpperCase || !hasLowerCase || !hasSpecialCharacter){
         return {
             isValid:false,
             message:"Password must include at least one numbers, UPPERCASE letters, lowercase letters and special charaters"
         }
-    }    
+    }   
     
     let hibp=await checkHIBP(password);
     hibp.isValid=hibp.isBreached ? false:true;

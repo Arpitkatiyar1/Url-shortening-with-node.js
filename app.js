@@ -1,10 +1,14 @@
 const express=require('express')
-const server=require('./server')
+const {connectToDb}=require('./db/connect')
 const path=require('path')
 const app=express();
 const port=8000;
 const urlsRoute=require('./Route/urls')
 const usersRoute=require('./Route/users')
+
+//connecting to db
+const url = "mongodb://localhost:27017/shorturl-demo";
+connectToDb(url);
 
 //middleware
 app.use(express.json())

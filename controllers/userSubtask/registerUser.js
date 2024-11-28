@@ -1,6 +1,7 @@
-const {USERS}=require('../../model/users')
+const { USERS } = require('../../model/users')
+const {jwtGenerator}=require('./jwt')
 const bcrypt=require('bcrypt')
-const {sendVarificationEmail}=require('./sendEmail')
+const {sendEmail}=require('./sendEmail')
 
 const registerUser=async (req)=>{
     try{
@@ -13,9 +14,19 @@ const registerUser=async (req)=>{
         lastName:req.body.lastName,
         password:hash,
         email:req.body.email,
-       })
-       await sendVarificationEmail(user);
-       return { message:`user has been registered successfully`};
+        })
+        const token = jwtGenerator(user); 
+        const mailObj = {
+            link: `http://localhost:8000/users/verify-email?token=${token}`,
+            subject:"Verify-mail"
+        }
+        try {
+            await sendEmail(user, mailObj);
+            console.log(`verification email successfully`)
+        } catch (err) {
+            console.error("User registered but failed to verify the email")
+        }
+        return { message:`user has been registered successfully`};
     }
     catch(err){
         return err;

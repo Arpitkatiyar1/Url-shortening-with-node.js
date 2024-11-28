@@ -1,5 +1,3 @@
-const {jwtGenerator} =require("./jwt")
-
 const nodemailer=require('nodemailer')
 //creating transporter for sendig the mail;
 const transporter=nodemailer.createTransport({
@@ -10,21 +8,18 @@ const transporter=nodemailer.createTransport({
     }
 });
 
-const sendVarificationEmail=async(user)=>{
-    const token=jwtGenerator(user);
-    const verificationLink=`http://localhost:8000/users/verify-email?token=${token}`
+const sendEmail=async(user,mailObj)=>{
     const mailOptions = {
         from: 'ktrarpit@gmail.com',
         to: user.email,
-        subject: 'Verify Your Email',
-        html: `<p>Please click the following link to verify your email:</p>
-        <a href="${verificationLink}">Click here to verify</a>`,
+        subject: mailObj.subject,
+        html: `<p>Please click the following link to ${mailObj.subject}:</p>
+        <a href="${mailObj.link}">Click here to ${mailObj.subject}</a>`,
     }
-    console.log(`mailoptions object created`)
     try{
         return await transporter.sendMail(mailOptions)
     }catch(err){
         return err;
     }
 }
-module.exports={sendVarificationEmail};
+module.exports={sendEmail};
