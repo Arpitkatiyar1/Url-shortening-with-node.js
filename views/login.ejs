@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<body>
+    <h1>Please enter email and password</h1>
+    <form action="/users/login" method="POST">
+        <label for="email"></label>
+        <input type="text" name="mail" placeholder="example@abc.com" required>
+        <label for="password"></label>
+        <input type="password" name="password" placeholder="*********" required>
+        <button type="submit">Login</button>
+        <a href="/users/signup">signup</a>
+        <a href="/users/resetPassword">forgotPassword</a>
+    </form>
+    <% if (status) { %>
+      <p><%= status %></p>
+    <% } %>
+</body>
+</html>

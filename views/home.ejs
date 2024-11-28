@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>url-shortener</title>
+</head>
+<body>
+    <h1>This is url-shortener home page</h1>
+    <form method="post" action="/urls/home">
+        <label for="original url"></label>
+        <input type="text" name="url" id="org-url" placeholder="please paste the url">
+        <button type="submit">Generate</button>
+    </form>
+    <% if (err) { %>
+        <%= err.message %>
+    <% } %>
+</body>
+</html>
