@@ -5,20 +5,18 @@ const {
     handleSignupUserPostRequest,
     handleLoginGetRequest,
     handleLoginUserPostRequest,
-    handleUserHomePageRequest
+    handleGetResetPasswordRequest,
+    handlePostResetPasswordRequest,
 }=require('../controllers/users')
-//const {handleGetResetPasswordRequest, handlePostResetPasswordRequest}=require('./passwordReset')
-//const {handlePostEmailVerficationRequest,handleGetEmailVerficationRequest}=require('./emailVerfication')
 const {varifyEmail}=require('../controllers/userSubtask/verifyEmail')
 
 
-//router.route('/resetPassword')
-// .get(handleGetResetPasswordRequest)
-// .post(handleGetResetPasswordRequest);
+router.route('/enterEmailToResetPassword')
+.get(handleGetResetPasswordRequest)
+.post(handlePostResetPasswordRequest);
 
 router.route('/verify-email')
 .get(varifyEmail);
-// .post(handlePostEmailVerficationRequest)
 
 router.route("/signup")
 .get(handleSignupGetRequest)

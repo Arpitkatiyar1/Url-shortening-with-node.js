@@ -6,6 +6,7 @@ const {isStrongPassword}=require('./user-validation/password')
 const {registerUser}=require('./userSubtask/registerUser')
 const {userValidate}=require("./user-validation/user-express-validation");
 const validator=require('validator')
+const {resetPassword}=require('./userSubtask/resetPassword.js')
 
 const handleSignupGetRequest=async (req,res)=>{  
     return res.render('signup',{err:null});
@@ -51,9 +52,21 @@ const handleLoginUserPostRequest=async(req,res)=>{
          res.render('login',{status:err.message})
     }
 }
+const handleGetResetPasswordRequest=(req,res)=>{
+   try{
+    return res.status(200).render('enterMailToResetPassword');
+   }catch(err){
+    return res.status(404).send(err.message);
+   }
+}
+const handlePostResetPasswordRequest=async (req,resetPassword,res)=>{
+      
+}
 module.exports={
     handleSignupGetRequest,
     handleSignupUserPostRequest,
     handleLoginUserPostRequest,
     handleLoginGetRequest,
+    handlePostResetPasswordRequest,
+    handleGetResetPasswordRequest,
 }
